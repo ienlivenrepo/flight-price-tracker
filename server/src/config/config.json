@@ -1,0 +1,8 @@
+{
+    "port": 3000,
+    "skyScannerBaseUrl": "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices",
+    "skyScannerSessionUrl": "/pricing/v1.0",
+    "skyScannerPollingUrl": "/pricing/uk2/v1.0/",
+    "rapidApiAccount": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+    "rapidApiKey": "365187363fmsh1455b7e934aa486p1e1441jsnd697c2f39427"
+}
