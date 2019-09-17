@@ -13,15 +13,15 @@ server: backend node.js code
 
 a)Bootup Server backend
 
-> cd server
-> npm install
-> npm run dev
+1)cd server
+2)npm install
+3)npm run dev
 
 b)Bootup Client
 
-> cd client
-> npm install
-> npm start
+1)cd client
+2)npm install
+3)npm start
 
 client will bootup at http://localhost:3001
 
