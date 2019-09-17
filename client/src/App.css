@@ -5,5 +5,8 @@
 
 .App-container {
   height: 600px;
-  width: 100%
+  width: 600px;
+  align-content: center;
+  display: flex;
+  justify-content: center
 }

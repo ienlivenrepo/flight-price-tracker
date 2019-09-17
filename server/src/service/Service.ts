@@ -14,11 +14,11 @@ export class Service implements IService {
     origin: string,
     destination: string
   ): Promise<string> {
-    console.log("print");
     let response = await this.getPolledData(date, origin, destination);
     return response;
   }
 
+  //polling the data for getting the sessionID and based on the sessionID we get the data from skyscanner api
   private async getPolledData(
     date: string,
     origin: string,
@@ -28,10 +28,13 @@ export class Service implements IService {
     let sessionID: string = sess;
     let response = "";
     try {
+      //fetching session id
       response = await this.getSkyscannerData(
         sessionID.substring(sessionID.lastIndexOf("/") + 1)
       );
+      //polling for UpdatesComplete
       while (response["Status"] === "UpdatesPending") {
+        //fetching skyscanner data
         response = await this.getSkyscannerData(
           sessionID.substring(sessionID.lastIndexOf("/") + 1)
         );
@@ -43,11 +46,9 @@ export class Service implements IService {
   }
 
   private async getSkyscannerData(sessionID: string): Promise<string> {
-    console.info("sessionID received: " + sessionID);
     let url: string = this.config.skyScannerBaseUrl
       .concat(this.config.skyScannerPollingUrl)
       .concat(sessionID);
-    console.info(url);
     return await axios
       .get(url, { headers: this.headers })
       .then(function(response) {
@@ -78,7 +79,6 @@ export class Service implements IService {
       outboundDate: date,
       adults: "1"
     };
-    console.log(formData);
     return await axios
       .post(
         this.config.skyScannerBaseUrl.concat(this.config.skyScannerSessionUrl),

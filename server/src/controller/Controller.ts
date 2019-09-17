@@ -3,6 +3,7 @@ import { Service } from "../service/Service";
 import _ from "lodash";
 import { DailyPrice } from "../model/DailyPrice";
 import { TSMap } from "typescript-map";
+import moment from "moment";
 
 export class Controller implements IController {
   public flightRatesService: Service = new Service();
@@ -12,27 +13,26 @@ export class Controller implements IController {
     "KUL-sky:SFO-sky"
   ];
 
-  public async getMinPrice(
-    date: string,
-    from: string,
-    to: string
-  ): Promise<any[]> {
+  //method to get the minimum price for the data fetched  for a given date
+  public async getMinPrice(date: string): Promise<any[]> {
     let dateArray = new Array();
-    let currentDate = new Date();
+    let currentDate = new Date(date);
     const results = [];
     let lastDateOfMonth = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth() + 1,
       0
     );
-    dateArray = this.getDateArray(currentDate, lastDateOfMonth);
+    dateArray = await this.getDateArray(currentDate, lastDateOfMonth);
+    console.log(dateArray);
     for (const flightRoute of Controller.flightRoutes) {
-      results.push(this.getDestinationPriceMap(dateArray, flightRoute));
+      results.push(await this.getDestinationPriceMap(dateArray, flightRoute));
     }
 
     return this.formatPayload(await Promise.all(results));
   }
 
+  //method to format the payload
   private async formatPayload(dailyPriceArray: any[]): Promise<any[]> {
     let arr = [].concat.apply([], dailyPriceArray);
     return await _(arr)
@@ -41,16 +41,14 @@ export class Controller implements IController {
       .value();
   }
 
+  // get array of outbound leg price based on date
   private async getDestinationPriceMap(
     dateArray: string[],
     element: string
-  ): any {
-    let legPriceMap: TSMap<string, DailyPrice[]> = new TSMap();
-    let dailyMinimumPriceArray: DailyPrice[] = new Array();
-    let finalArray = new Array();
+  ): Promise<DailyPrice[]> {
+    let finalArray = [];
     const resolvedFinalArray = await Promise.all(
       (finalArray = dateArray.map(async date => {
-        console.log("-------->");
         let from: string = element.split(":")[0];
         let to: string = element.split(":")[1];
         let response = await this.flightRatesService.getMinPriceForDay(
@@ -66,6 +64,7 @@ export class Controller implements IController {
     return resolvedFinalArray;
   }
 
+  // method contains the logic to retrieve the minimum price from the inineraries fetched.
   private async findMinPrice(response: Object): Promise<string> {
     let itineraries: Object[] = new Array();
     let minPriceList: Object[] = new Array();
@@ -83,9 +82,12 @@ export class Controller implements IController {
     return res;
   }
 
-  private getDateArray(start: Date, end: Date): string[] {
+  //utility method to fetch month to date array
+  private async getDateArray(start: Date, end: Date): Promise<string[]> {
     let dateArray = new Array();
     let dt = new Date(start);
+    dt.setDate(dt.getDate() + 1);
+    end.setDate(end.getDate() + 1);
     while (dt <= end) {
       dateArray.push(new Date(dt).toISOString().split("T")[0]);
       dt.setDate(dt.getDate() + 1);

@@ -3,7 +3,7 @@ import { Controller } from "../controller/Controller";
 
 export class Routes {
   public flightRatesController: Controller = new Controller();
-
+  // mapping the routes for the api
   public routes(app): void {
     /* test route */
     app.route("/").get((req: Request, res: Response) => {
@@ -14,16 +14,12 @@ export class Routes {
     /getData/;
     /*  */
     app
-      .route("/getData/:startDate/:from/:to")
+      .route("/getData/:startDate/")
       .get(async (req: Request, res: Response) => {
         res
           .status(200)
           .send(
-            await this.flightRatesController.getMinPrice(
-              req.params.startDate,
-              req.params.from,
-              req.params.to
-            )
+            await this.flightRatesController.getMinPrice(req.params.startDate)
           );
       });
   }

@@ -1,11 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
 import { Basic } from "./components/calendar";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
+import "./styles/styles.scss";
 
 const App: React.FC = () => {
   return (
-    <div className="App-container">
+    <div className="container">
       <Basic />
     </div>
   );
