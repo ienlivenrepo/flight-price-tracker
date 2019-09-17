@@ -3,6 +3,11 @@ This project gives the cheapest flight price for the outbound legs-> SIN – KUL
 Pre-requisites:
 Node.js should be installed
 
+FrontEnd developed in React.js
+Backend developed in Node.js
+
+Note: Typescript is used extensively in this project.
+
 Steps to run the project:
 
 ---
