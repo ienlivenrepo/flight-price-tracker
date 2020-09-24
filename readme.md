@@ -12,8 +12,6 @@ Note: Typescript is used extensively in this project.
 
 # Steps to run the project:
 
----
-
 The project contains of two folders :
 client: Client side code
 server: backend node.js code
@@ -33,7 +31,5 @@ b)Bootup Client
 client will bootup at http://localhost:3001
 
 # Things to improve:
-
----
 
 a) write test cases
