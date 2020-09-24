@@ -1,4 +1,5 @@
-##Description
+# Description
+
 This project gives the cheapest flight price for the outbound legs-> SIN – KUL , KUL – SIN , KUL – SFO in the calendar format.
 
 Pre-requisites:
