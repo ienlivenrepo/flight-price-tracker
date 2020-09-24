@@ -2,7 +2,7 @@
 
 This project gives the cheapest flight price for the outbound legs-> SIN – KUL , KUL – SIN , KUL – SFO in the calendar format.
 
-Pre-requisites:
+# Pre-requisites:
 Node.js should be installed
 
 FrontEnd developed in React.js
@@ -10,7 +10,7 @@ Backend developed in Node.js
 
 Note: Typescript is used extensively in this project.
 
-Steps to run the project:
+# Steps to run the project:
 
 ---
 
@@ -32,7 +32,7 @@ b)Bootup Client
 
 client will bootup at http://localhost:3001
 
-Things to improve:
+# Things to improve:
 
 ---
 
